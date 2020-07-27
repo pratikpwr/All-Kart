@@ -1,4 +1,5 @@
 import 'package:all_kart/providers/cart.dart';
+import 'package:all_kart/providers/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toast/toast.dart';
 import '../providers/products.dart';
@@ -13,7 +14,7 @@ class ProductDetailScreen extends StatelessWidget {
     final productId = ModalRoute.of(context).settings.arguments as String;
     final loadedItem = Provider.of<Products>(context).findById(productId);
     final cart = Provider.of<Cart>(context);
-    final int price = loadedItem.price;
+    Provider.of<Product>(context);
 
     final double screenHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
@@ -60,14 +61,14 @@ class ProductDetailScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                '\$ $price',
+                                '₹ ${loadedItem.price}',
                                 style: GoogleFonts.titilliumWeb(
                                     fontSize: 28, fontWeight: FontWeight.bold),
                               ),
                               GestureDetector(
                                 onTap: () {
                                   cart.addItem(loadedItem.id, loadedItem.title,
-                                      loadedItem.price);
+                                      loadedItem.price , loadedItem.imageUrl);
                                   Toast.show("Added to Cart", context,
                                       duration: Toast.LENGTH_SHORT,
                                       gravity: Toast.BOTTOM);
@@ -115,15 +116,26 @@ class ProductDetailScreen extends StatelessWidget {
             Positioned(
               top: screenHeight * 0.545,
               left: MediaQuery.of(context).size.width - 90,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color(0xff2e2e2d),
-                    borderRadius: BorderRadius.circular(50)),
-                child: IconButton(
-                  iconSize: 40,
-                  color: Colors.white,
-                  icon: Icon(Icons.favorite_border),
-                  onPressed: () {},
+              child: ChangeNotifierProvider.value(
+                value: loadedItem,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xff2e2e2d),
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Consumer<Product>(
+                    builder: (context, product, child) {
+                      return IconButton(
+                        icon: Icon(product.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border),
+                        color: Colors.white,
+                        iconSize: 40,
+                        onPressed: () {
+                          product.toggleFavoriteStatus();
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             )

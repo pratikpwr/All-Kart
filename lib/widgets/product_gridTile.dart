@@ -8,7 +8,6 @@ class ProductGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
 
-    final int price = product.price;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +23,7 @@ class ProductGridTile extends StatelessWidget {
                 },
                 child: Image.network(
                   product.imageUrl,
-                  height: MediaQuery.of(context).size.height - 570,
+                  height: MediaQuery.of(context).size.height - 595,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
@@ -53,7 +52,7 @@ class ProductGridTile extends StatelessWidget {
               fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Text(
-          '\$ $price',
+          '₹ ${product.price}',
           style: GoogleFonts.titilliumWeb(
               fontSize: 20, fontWeight: FontWeight.bold),
         )

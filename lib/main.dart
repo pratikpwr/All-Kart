@@ -1,4 +1,5 @@
 import 'package:all_kart/providers/cart.dart';
+import 'package:all_kart/providers/product.dart';
 import 'package:all_kart/screens/cart_screen.dart';
 
 import './screens/favorites_screen.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Cart>(
           create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProvider<Product>(
+            create: (ctx) => Product()
         )
       ],
       child: MaterialApp(
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/product-detail': (context) => ProductDetailScreen(),
           '/favorites': (context) => FavoritesScreen(),
-          '/cart' : (context) => CartScreen()
+          '/cart': (context) => CartScreen()
         },
       ),
     );

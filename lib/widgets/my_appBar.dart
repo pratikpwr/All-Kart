@@ -14,7 +14,7 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 88,
       width: MediaQuery.of(context).size.width,
       decoration: new BoxDecoration(
         color: Theme.of(context).canvasColor,
@@ -48,7 +48,7 @@ class MyAppBar extends StatelessWidget {
                 Text(
                   title,
                   style: GoogleFonts.titilliumWeb(
-                      fontSize: 26, fontWeight: FontWeight.bold),
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 isCart
                     ? Badge()
