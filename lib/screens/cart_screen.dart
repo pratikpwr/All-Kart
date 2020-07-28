@@ -1,7 +1,10 @@
-import 'package:all_kart/providers/cart.dart';
-import 'package:all_kart/widgets/cart_item.dart';
+import '../providers/cart.dart';
+import '../providers/orders.dart';
+import '../screens/orders_screen.dart';
+import '../widgets/cart_item.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 import '../widgets/my_appBar.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +23,7 @@ class CartScreen extends StatelessWidget {
             title: 'Your Cart',
             leading: Icons.arrow_back,
             leadingOnTap: () {
-              Navigator.pop(context);
+              Navigator.popUntil(context, ModalRoute.withName('/'));
             },
             isCart: false,
           ),
@@ -33,7 +36,7 @@ class CartScreen extends StatelessWidget {
                     itemCount: cart.items.length,
                     itemBuilder: (context, index) {
                       return ChangeNotifierProvider.value(
-                        value: cart.items.values.toList()[index],
+                          value: cart.items.values.toList()[index],
                           child: CartItemTile());
                     }),
               ),
@@ -76,20 +79,39 @@ class CartScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 56,
-                      width: 240,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff2e2e2d),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Order  Now',
-                          style: GoogleFonts.titilliumWeb(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onTap: () {
+                        if (cart.items.isEmpty) {
+                          Toast.show("Add Items to Cart First", context,
+                              duration: Toast.LENGTH_SHORT,
+                              gravity: Toast.BOTTOM);
+                        } else {
+                          Provider.of<Orders>(context, listen: false).addOrder(
+                              cart.items.values.toList(), cart.cartTotal);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    OrderScreen()),
+                            ModalRoute.withName('/orders'),
+                          );
+                          cart.clearCart();
+                        }
+                      },
+                      child: Container(
+                        height: 56,
+                        width: 240,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff2e2e2d),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Order  Now',
+                            style: GoogleFonts.titilliumWeb(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),

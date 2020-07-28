@@ -1,7 +1,8 @@
-import 'package:all_kart/providers/cart.dart';
-import 'package:all_kart/providers/product.dart';
-import 'package:all_kart/screens/cart_screen.dart';
-
+import './providers/cart.dart';
+import './providers/orders.dart';
+import './providers/product.dart';
+import './screens/cart_screen.dart';
+import './screens/orders_screen.dart';
 import './screens/favorites_screen.dart';
 import './providers/products.dart';
 import './screens/product_detail_screen.dart';
@@ -25,7 +26,10 @@ class MyApp extends StatelessWidget {
           create: (ctx) => Cart(),
         ),
         ChangeNotifierProvider<Product>(
-            create: (ctx) => Product()
+          create: (ctx) => Product(),
+        ),
+        ChangeNotifierProvider<Orders>(
+          create: (ctx) => Orders(),
         )
       ],
       child: MaterialApp(
@@ -34,11 +38,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             //canvasColor: const Color(0xfff9f9f9)
             canvasColor: const Color(0xffffecf0)),
-        home: ProductOverviewScreen(),
+        initialRoute: '/',
         routes: {
+          '/': (context) => ProductOverviewScreen(),
           '/product-detail': (context) => ProductDetailScreen(),
           '/favorites': (context) => FavoritesScreen(),
-          '/cart': (context) => CartScreen()
+          '/cart': (context) => CartScreen(),
+          '/orders': (context) => OrderScreen(),
         },
       ),
     );

@@ -1,4 +1,4 @@
-import 'package:all_kart/providers/cart.dart';
+import '../providers/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +10,8 @@ class CartItemTile extends StatelessWidget {
     return Dismissible(
       key: ValueKey(cartItem.id),
       direction: DismissDirection.endToStart,
-
-      onDismissed: (direction){
-        Provider.of<Cart>(context , listen: false).removeItem(cartItem.id);
+      onDismissed: (direction) {
+        Provider.of<Cart>(context, listen: false).removeItem(cartItem.id);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -33,8 +32,8 @@ class CartItemTile extends StatelessWidget {
                       blurRadius: 15.0,
                       spreadRadius: 1.0,
                       offset: Offset(
-                        3.0,
-                        3.0,
+                        2.0,
+                        2.0,
                       ),
                     )
                   ],

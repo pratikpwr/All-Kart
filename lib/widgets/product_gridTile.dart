@@ -1,4 +1,4 @@
-import 'package:all_kart/providers/product.dart';
+import '../providers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,6 @@ class ProductGridTile extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         ClipRRect(
           borderRadius: BorderRadius.circular(18),

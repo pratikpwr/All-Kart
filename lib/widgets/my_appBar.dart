@@ -50,9 +50,7 @@ class MyAppBar extends StatelessWidget {
                   style: GoogleFonts.titilliumWeb(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                isCart
-                    ? Badge()
-                    : Text('            '),
+                isCart ? Badge() : Text('            '),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/my_appBar.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +9,20 @@ class ProductOverviewScreen extends StatefulWidget {
 }
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       body: Column(
         children: <Widget>[
           MyAppBar(
             title: 'AllKart',
             leading: Icons.menu,
-            leadingOnTap: () {},
+            leadingOnTap: () {
+              _key.currentState.openDrawer();
+            },
             isCart: true,
           ),
           Expanded(
@@ -26,6 +32,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed('/favorites');

@@ -1,5 +1,6 @@
-import 'package:all_kart/providers/cart.dart';
-import 'package:all_kart/providers/product.dart';
+import '../providers/cart.dart';
+import '../providers/product.dart';
+import '../widgets/badge.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toast/toast.dart';
 import '../providers/products.dart';
@@ -68,7 +69,7 @@ class ProductDetailScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   cart.addItem(loadedItem.id, loadedItem.title,
-                                      loadedItem.price , loadedItem.imageUrl);
+                                      loadedItem.price, loadedItem.imageUrl);
                                   Toast.show("Added to Cart", context,
                                       duration: Toast.LENGTH_SHORT,
                                       gravity: Toast.BOTTOM);
@@ -112,6 +113,15 @@ class ProductDetailScreen extends StatelessWidget {
                   },
                 ),
               ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Badge()),
             ),
             Positioned(
               top: screenHeight * 0.545,
