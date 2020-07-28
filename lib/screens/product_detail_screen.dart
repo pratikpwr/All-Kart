@@ -70,7 +70,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 onTap: () {
                                   cart.addItem(loadedItem.id, loadedItem.title,
                                       loadedItem.price, loadedItem.imageUrl);
-                                  Toast.show("Added to Cart", context,
+                                  Toast.show("Added Item to Cart", context,
                                       duration: Toast.LENGTH_SHORT,
                                       gravity: Toast.BOTTOM);
                                 },

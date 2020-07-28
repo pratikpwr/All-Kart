@@ -42,12 +42,24 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.payment),
             title: Text(
-              'Orders',
+              'Your Orders',
               style: GoogleFonts.titilliumWeb(
                   fontWeight: FontWeight.w600, fontSize: 18),
             ),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/orders');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.category),
+            title: Text(
+              'Your Products',
+              style: GoogleFonts.titilliumWeb(
+                  fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/userProducts');
             },
           )
         ],

@@ -1,11 +1,10 @@
 import '../providers/cart.dart';
 import '../providers/orders.dart';
 import '../screens/orders_screen.dart';
-import '../widgets/cart_item.dart';
+import '../widgets/cart_item_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
-
 import '../widgets/my_appBar.dart';
 import 'package:flutter/material.dart';
 
