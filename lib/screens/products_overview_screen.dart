@@ -1,3 +1,5 @@
+import '../providers/products.dart';
+import 'package:provider/provider.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/my_appBar.dart';
@@ -25,11 +27,28 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             },
             isCart: true,
           ),
-          Expanded(
-            child: ProductsGrid(
-              isFavoriteOnly: false,
-            ),
-          ),
+          FutureBuilder(
+              future: Provider.of<Products>(context, listen: false)
+                  .fetchAndSetProducts(),
+              builder: (ctx, snapShot) {
+                if (snapShot.connectionState == ConnectionState.waiting) {
+                  return Expanded(
+                      child: Center(
+                    child: CircularProgressIndicator(),
+                  ));
+                } else if (snapShot.error != null) {
+                  return Expanded(
+                      child: Center(
+                    child: Text('An error Occurred.'),
+                  ));
+                } else {
+                  return Expanded(
+                    child: ProductsGrid(
+                      isFavoriteOnly: false,
+                    ),
+                  );
+                }
+              })
         ],
       ),
       drawer: AppDrawer(),

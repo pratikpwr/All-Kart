@@ -8,6 +8,10 @@ import 'package:provider/provider.dart';
 class UserProductScreen extends StatelessWidget {
   static const routeName = '/userProducts';
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context).fetchAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
@@ -36,13 +40,16 @@ class UserProductScreen extends StatelessWidget {
             isCart: false,
           ),
           Expanded(
-              child: ListView.builder(
-                  itemCount: productData.items.length,
-                  itemBuilder: (context, index) {
-                    return ChangeNotifierProvider.value(
-                        value: productData.items[index],
-                        child: UserProductTile());
-                  }))
+              child: RefreshIndicator(
+            onRefresh: () => _refreshProducts(context),
+            child: ListView.builder(
+                itemCount: productData.items.length,
+                itemBuilder: (context, index) {
+                  return ChangeNotifierProvider.value(
+                      value: productData.items[index],
+                      child: UserProductTile());
+                }),
+          ))
         ],
       ),
     );

@@ -78,42 +78,7 @@ class CartScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        if (cart.items.isEmpty) {
-                          Toast.show("Add Items to Cart First", context,
-                              duration: Toast.LENGTH_SHORT,
-                              gravity: Toast.BOTTOM);
-                        } else {
-                          Provider.of<Orders>(context, listen: false).addOrder(
-                              cart.items.values.toList(), cart.cartTotal);
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    OrderScreen()),
-                            ModalRoute.withName('/orders'),
-                          );
-                          cart.clearCart();
-                        }
-                      },
-                      child: Container(
-                        height: 56,
-                        width: 240,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff2e2e2d),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Order  Now',
-                            style: GoogleFonts.titilliumWeb(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
+                    OrderButton(cart: cart),
                   ],
                 ),
               )
@@ -121,6 +86,68 @@ class CartScreen extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key key,
+    @required this.cart,
+  }) : super(key: key);
+
+  final Cart cart;
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.cart.items.isEmpty
+          ? () {
+              Toast.show("Add Items to Cart First", context,
+                  duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+            }
+          : () async {
+              setState(() {
+                isLoading = true;
+              });
+              await Provider.of<Orders>(context, listen: false).addOrder(
+                  widget.cart.items.values.toList(), widget.cart.cartTotal);
+              setState(() {
+                isLoading = false;
+              });
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => OrderScreen()),
+                ModalRoute.withName('/orders'),
+              );
+              widget.cart.clearCart();
+            },
+      child: isLoading
+          ? CircularProgressIndicator()
+          : Container(
+              height: 56,
+              width: 240,
+              decoration: BoxDecoration(
+                color: const Color(0xff2e2e2d),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Text(
+                  'Order  Now',
+                  style: GoogleFonts.titilliumWeb(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
     );
   }
 }
