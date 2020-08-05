@@ -1,3 +1,4 @@
+import '../providers/auth.dart';
 import '../providers/cart.dart';
 import '../providers/product.dart';
 import '../widgets/badge.dart';
@@ -16,6 +17,7 @@ class ProductDetailScreen extends StatelessWidget {
     final loadedItem = Provider.of<Products>(context).findById(productId);
     final cart = Provider.of<Cart>(context);
     Provider.of<Product>(context);
+    final authData = Provider.of<Auth>(context, listen: false);
 
     final double screenHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
@@ -141,7 +143,8 @@ class ProductDetailScreen extends StatelessWidget {
                         color: Colors.white,
                         iconSize: 40,
                         onPressed: () {
-                          product.toggleFavoriteStatus();
+                          product.toggleFavoriteStatus(
+                              authData.token, authData.userId);
                         },
                       );
                     },

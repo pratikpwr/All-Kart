@@ -22,7 +22,8 @@ class CartScreen extends StatelessWidget {
             title: 'Your Cart',
             leading: Icons.arrow_back,
             leadingOnTap: () {
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+              Navigator.popUntil(
+                  context, ModalRoute.withName('/product-overview'));
             },
             isCart: false,
           ),

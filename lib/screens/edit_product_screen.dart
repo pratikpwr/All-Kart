@@ -141,6 +141,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
             leadingOnTap: () {
               Navigator.of(context).pop();
             },
+            trailing: Icons.save,
+            trailingOnTap: () {
+              _saveForm();
+            },
             isCart: false,
           ),
           Expanded(

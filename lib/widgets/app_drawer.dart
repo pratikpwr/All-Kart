@@ -1,5 +1,7 @@
+import '../providers/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -35,7 +37,7 @@ class AppDrawer extends StatelessWidget {
                   fontWeight: FontWeight.w600, fontSize: 18),
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/');
+              Navigator.of(context).pushReplacementNamed('/product-overview');
             },
           ),
           Divider(),
@@ -60,6 +62,19 @@ class AppDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/userProducts');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text(
+              'SignOut',
+              style: GoogleFonts.titilliumWeb(
+                  fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+            onTap: () {
+              Provider.of<Auth>(context, listen: false).signOut();
+              Navigator.pushReplacementNamed(context, '/auth');
             },
           )
         ],

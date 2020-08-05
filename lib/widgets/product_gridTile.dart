@@ -1,3 +1,5 @@
+import '../providers/auth.dart';
+
 import '../providers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +9,7 @@ class ProductGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
-
+    final authData = Provider.of<Auth>(context , listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -36,7 +38,7 @@ class ProductGridTile extends StatelessWidget {
                           ? Icons.favorite
                           : Icons.favorite_border),
                       onPressed: () {
-                        product.toggleFavoriteStatus();
+                        product.toggleFavoriteStatus(authData.token , authData.userId);
                       },
                     );
                   },

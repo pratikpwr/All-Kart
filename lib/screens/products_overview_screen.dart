@@ -6,6 +6,8 @@ import '../widgets/my_appBar.dart';
 import 'package:flutter/material.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
+  static const routeName = '/product-overview';
+
   @override
   _ProductOverviewScreenState createState() => _ProductOverviewScreenState();
 }

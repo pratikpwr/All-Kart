@@ -25,6 +25,7 @@ dependencies:
   provider: ^4.3.1
   intl: ^0.16.1
   http: ^0.12.2
+  shared_preferences: ^0.5.8
   toast: ^0.1.5
   flutter:
     sdk: flutter

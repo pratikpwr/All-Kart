@@ -9,12 +9,12 @@ class UserProductScreen extends StatelessWidget {
   static const routeName = '/userProducts';
 
   Future<void> _refreshProducts(BuildContext context) async {
-    await Provider.of<Products>(context).fetchAndSetProducts();
+    await Provider.of<Products>(context, listen: false)
+        .fetchAndSetProducts(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
     GlobalKey<ScaffoldState> _key = GlobalKey();
     return Scaffold(
       key: _key,
@@ -40,15 +40,25 @@ class UserProductScreen extends StatelessWidget {
             isCart: false,
           ),
           Expanded(
-              child: RefreshIndicator(
-            onRefresh: () => _refreshProducts(context),
-            child: ListView.builder(
-                itemCount: productData.items.length,
-                itemBuilder: (context, index) {
-                  return ChangeNotifierProvider.value(
-                      value: productData.items[index],
-                      child: UserProductTile());
-                }),
+              child: FutureBuilder(
+            future: _refreshProducts(context),
+            builder: (ctx, snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : RefreshIndicator(
+                        onRefresh: () => _refreshProducts(context),
+                        child: Consumer<Products>(
+                          builder: (ctx, productData, _) => ListView.builder(
+                              itemCount: productData.items.length,
+                              itemBuilder: (context, index) {
+                                return ChangeNotifierProvider.value(
+                                    value: productData.items[index],
+                                    child: UserProductTile());
+                              }),
+                        ),
+                      ),
           ))
         ],
       ),

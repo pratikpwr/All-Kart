@@ -18,16 +18,17 @@ class Product extends ChangeNotifier {
       this.price,
       this.isFavorite = false});
 
-  Future<void> toggleFavoriteStatus() async {
+  Future<void> toggleFavoriteStatus(String authToken, String userId) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
-    final url = 'https://allkart-6ac4e.firebaseio.com/products/$id.json';
+    final url =
+        'https://allkart-6ac4e.firebaseio.com/userFavorite/$userId/$id.json?auth=$authToken';
     try {
-      final response = await http.patch(url,
-          body: json.encode({
-            'isFavorite': isFavorite,
-          }));
+      final response = await http.put(url,
+          body: json.encode(
+            isFavorite,
+          ));
       if (response.statusCode >= 400) {
         isFavorite = oldStatus;
         notifyListeners();

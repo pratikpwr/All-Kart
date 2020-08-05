@@ -7,9 +7,17 @@ class MyAppBar extends StatelessWidget {
   final String title;
   final IconData leading;
   final Function leadingOnTap;
+  final IconData trailing;
+  final Function trailingOnTap;
   bool isCart;
 
-  MyAppBar({this.title, this.leading, this.leadingOnTap, this.isCart = true});
+  MyAppBar(
+      {this.title,
+      this.leading,
+      this.leadingOnTap,
+      this.isCart = true,
+      this.trailing,
+      this.trailingOnTap});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +58,10 @@ class MyAppBar extends StatelessWidget {
                   style: GoogleFonts.titilliumWeb(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                isCart ? Badge() : Text('            '),
+                isCart
+                    ? Badge()
+                    : IconButton(
+                        icon: Icon(trailing), onPressed: trailingOnTap),
               ],
             ),
           ),
