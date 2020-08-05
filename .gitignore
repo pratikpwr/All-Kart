@@ -29,7 +29,7 @@
 .pub-cache/
 .pub/
 /build/
-lib/key.dart
+
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -42,3 +42,6 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+
+lib/key.dart
