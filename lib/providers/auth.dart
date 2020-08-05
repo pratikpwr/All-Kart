@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:all_kart/key.dart';
+
 import '../models/http_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -32,7 +34,7 @@ class Auth with ChangeNotifier {
       String email, String password, String urlSegment) async {
     try {
       final url =
-          'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyBhecDZ-kpyRgJa7zjdPXOr75bB0W80Aq0';
+          'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$myKey';
       final response = await http.post(url,
           body: json.encode({
             'email': email,
