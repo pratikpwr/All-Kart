@@ -29,11 +29,14 @@ class ProductDetailScreen extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.network(
-                  loadedItem.imageUrl,
-                  height: screenHeight * 0.66,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
+                Hero(
+                  tag: loadedItem.id,
+                  child: Image.network(
+                    loadedItem.imageUrl,
+                    height: screenHeight * 0.66,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,

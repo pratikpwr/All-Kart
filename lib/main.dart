@@ -1,6 +1,7 @@
+import './helper/custom-routes.dart';
 import './providers/auth.dart';
 import './screens/auth_screen.dart';
-import './widgets/splash_screen.dart';
+import 'screens/splash_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/user_products_screen.dart';
 import './providers/cart.dart';
@@ -52,6 +53,10 @@ class MyApp extends StatelessWidget {
             title: 'AllKart',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.android: CustomPageTransitionBuilder(),
+                  TargetPlatform.iOS: CustomPageTransitionBuilder()
+                }),
                 //canvasColor: const Color(0xfff9f9f9)
                 canvasColor: const Color(0xffffecf0)),
             home: auth.isAuth

@@ -9,7 +9,7 @@ class ProductGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
-    final authData = Provider.of<Auth>(context , listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -18,17 +18,21 @@ class ProductGridTile extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/product-detail', arguments: product.id);
-                },
-                child: Image.network(
-                  product.imageUrl,
-                  height: MediaQuery.of(context).size.height - 595,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed('/product-detail', arguments: product.id);
+                  },
+                  child: Hero(
+                    tag: product.id,
+                    child: FadeInImage(
+                      placeholder:
+                          AssetImage('assets/images/product-placeholder.png'),
+                      image: NetworkImage(product.imageUrl),
+                      height: MediaQuery.of(context).size.height - 595,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    ),
+                  )),
               Align(
                 alignment: Alignment.topRight,
                 child: Consumer<Product>(
@@ -38,7 +42,8 @@ class ProductGridTile extends StatelessWidget {
                           ? Icons.favorite
                           : Icons.favorite_border),
                       onPressed: () {
-                        product.toggleFavoriteStatus(authData.token , authData.userId);
+                        product.toggleFavoriteStatus(
+                            authData.token, authData.userId);
                       },
                     );
                   },
